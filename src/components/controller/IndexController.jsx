@@ -35,6 +35,11 @@ const IndexController = () => {
       <button>
         <i className="fas fa-plus"></i>
       </button>
+
+      <button>
+        <i className="fas fa-sun"></i>
+        {/* <i className="fas fa-moon"></i> */}
+      </button>
     </div>
   )
 };
