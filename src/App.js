@@ -2,9 +2,13 @@ import React from 'react';
 
 // ========================= COMPONNETS =============================
 
-import IndexController from './components/controller/IndexController';
-import IndexAuth from './components/authenticated/IndexAuth';
+import IndexController from './components/ctrl/IndexController';
+import IndexAuth from './components/auth/IndexAuth';
 import IndexMain from './components/main/IndexMain';
+
+// ========================= CONTEXTS ===============================
+import ViewContextProvider from './contexts/ViewContext';
+import AuthContextProvider from './contexts/AuthContext';
 
 // ========================= STYLESHEETS ============================
 import './styleSheets/index.scss';
@@ -16,9 +20,13 @@ import './styleSheets/index.scss';
 const App = () => {
   return (
     <div className="wrapper-app">
-      <IndexController />
-      <IndexAuth />
-      <IndexMain />
+      <AuthContextProvider>
+        <IndexAuth />
+        <ViewContextProvider>
+          <IndexController />
+          <IndexMain />
+        </ViewContextProvider>
+      </AuthContextProvider>
     </div>
   )
 }

@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
+// ==================== Components ====================
+import Title from './Title';
 import StudentList from './StudentList';
+import Footer from './Footer';
+import ViewInfo from '../popup/ViewInfo';
+
+// ==================== Contexts ====================
+import { ViewContext } from '../../contexts/ViewContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const IndexMain = () => {
   const [studentList, setStudentList] = useState([
@@ -123,48 +132,30 @@ const IndexMain = () => {
       "createdAt": 1619675068175,
       "updatedAt": 1619675068175
     }
-  ])
+  ]);
+
+  const { isToggleView } = useContext(ViewContext);
+  const { isAuth } = useContext(AuthContext);
 
   return (
     <div className="wrapper-main">
-      <ul className="title-container">
-        <li className="title check">
-          <input type="checkbox" name="" />
-        </li>
-        <li className="title studentID">Student ID</li>
-        <li className="title name">Name</li>
-        <li className="title gender">Gender</li>
-        <li className="title phoneNumber">Phone Number</li>
-      </ul>
+      <Title />
 
       <div className="student-container">
-        {studentList.map(student =>
-          <StudentList student={student} key={student.id} />
-        )}
+        {isAuth ? (
+          studentList.map(student =>
+            <StudentList
+              student={student}
+              key={student.id}
+            />
+          )
+        ) : (<p style={{ textAlign: 'center', fontSize: '20px' }}>Please Login!</p>)}
+
       </div>
 
-      <div className="footer">
-        <button className="trash">
-          <span className="total">2</span>
-          <i class="fas fa-trash"></i>
-        </button>
+      {isToggleView ? <ViewInfo id={`view-student`} /> : null}
 
-        <div className="pagination">
-          <div className="page">
-            <span className="current">1</span> / <span className="total">10</span>
-          </div>
-
-          <div className="btn">
-            <button className="prev">
-              <i className="fas fa-long-arrow-alt-left"></i>
-            </button>
-            <button className="next">
-              <i className="fas fa-long-arrow-alt-right"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
+      <Footer />
     </div>
   )
 };

@@ -1,0 +1,12 @@
+@import "title";
+@import "studentContainer";
+@import "footer";
+
+.wrapper-main {
+  grid-area: 2 / 1 / 13 / 13;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(14, 1fr);
+  padding: 10px 20px 0;
+}

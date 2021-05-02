@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+
+import { ViewContext } from '../../contexts/ViewContext';
+
 
 const StudentList = ({ student }) => {
+
+  const { toggleView } = useContext(ViewContext);
 
   return (
     <div className="student-list" id={student.id}>
@@ -13,7 +18,8 @@ const StudentList = ({ student }) => {
         <li className="item gender">{student.gender}</li>
         <li className="item phoneNumber">{student.phoneNumber}</li>
       </ul>
-      <button className="student-view">
+      <button className="student-view"
+        onClick={toggleView}>
         <i className="fas fa-eye"></i>
       </button>
     </div>

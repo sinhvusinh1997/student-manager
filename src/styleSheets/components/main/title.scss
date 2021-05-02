@@ -1,0 +1,38 @@
+$border: 2.5px solid rgba(0, 0, 0, 0.5);
+
+.title-container {
+  grid-area: 1 / 1 / 2 / 13;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  border-bottom: $border;
+
+  .title {
+    border-right: $border;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .check {
+    grid-area: 1 / 1 / 2 / 2;
+    cursor: pointer;
+  }
+
+  .studentID {
+    grid-area: 1 / 2 / 2 / 4;
+  }
+
+  .name {
+    grid-area: 1 / 4 / 2 / 7;
+  }
+
+  .gender {
+    grid-area: 1 / 7 / 2 / 9;
+  }
+
+  .phoneNumber {
+    grid-area: 1 / 9 / 2 / 12;
+  }
+}
