@@ -9,6 +9,7 @@ import ViewInfo from '../popup/ViewInfo';
 // ==================== Contexts ====================
 import { ViewContext } from '../../contexts/ViewContext';
 import { AuthContext } from '../../contexts/AuthContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const IndexMain = () => {
   const [studentList, setStudentList] = useState([
@@ -136,9 +137,10 @@ const IndexMain = () => {
 
   const { isToggleView } = useContext(ViewContext);
   const { isAuth } = useContext(AuthContext);
+  const { isLight, theme } = useContext(ThemeContext);
 
   return (
-    <div className="wrapper-main">
+    <div className="wrapper-main" style={isLight ? theme.bg.light : theme.bg.dark}>
       <Title />
 
       <div className="student-container">

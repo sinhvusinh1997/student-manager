@@ -1,6 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 
 import { AuthContext } from '../../contexts/AuthContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const InputSearch = ({ label }) => {
 
@@ -19,15 +20,14 @@ const InputSearch = ({ label }) => {
   };
 
   const { isAuth } = useContext(AuthContext);
-  const disabledStyle = {
-    opacity: '0.2',
-    pointerEvents: 'none',
-  }
+
+  const { isLight, theme } = useContext(ThemeContext);
+  const styleInput = isLight ? theme.inputField.light : theme.inputField.dark;
 
 
   return (
     <input
-      style={isAuth ? null : disabledStyle}
+      style={isAuth ? styleInput : theme.disabledStyle}
       type="text"
       name={`SearchBy-${label}`}
       id={`SearchBy-${label}`}

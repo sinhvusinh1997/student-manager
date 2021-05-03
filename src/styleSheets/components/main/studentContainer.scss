@@ -11,8 +11,9 @@
 
     &:hover {
       cursor: pointer;
-      background: rgba(0, 0, 0, 0.05);
-      color: rgba(0, 0, 0, 1);
+      background: rgba(0, 0, 0, 0.2);
+      color: rgb(255, 255, 255);
+      font-weight: bold;
     }
 
     &:last-child {
@@ -64,7 +65,7 @@
       transition: all 0.25s ease-in-out;
 
       &:hover {
-        box-shadow: none;
+        box-shadow: none !important;
         background: rgba(14, 120, 129, 1);
       }
     }

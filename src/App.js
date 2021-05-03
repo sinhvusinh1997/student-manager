@@ -9,6 +9,7 @@ import IndexMain from './components/main/IndexMain';
 // ========================= CONTEXTS ===============================
 import ViewContextProvider from './contexts/ViewContext';
 import AuthContextProvider from './contexts/AuthContext';
+import ThemeContextProvider from './contexts/ThemeContext';
 
 // ========================= STYLESHEETS ============================
 import './styleSheets/index.scss';
@@ -21,11 +22,13 @@ const App = () => {
   return (
     <div className="wrapper-app">
       <AuthContextProvider>
-        <IndexAuth />
-        <ViewContextProvider>
-          <IndexController />
-          <IndexMain />
-        </ViewContextProvider>
+        <ThemeContextProvider>
+          <IndexAuth />
+          <ViewContextProvider>
+            <IndexController />
+            <IndexMain />
+          </ViewContextProvider>
+        </ThemeContextProvider>
       </AuthContextProvider>
     </div>
   )
