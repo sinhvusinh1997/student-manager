@@ -9,7 +9,7 @@ const ThemeContextProvider = ({ children }) => {
     // background
     bg: {
       light: {
-        background: 'rgba(255, 255, 255, 0.6)',
+        background: 'rgba(255, 255, 255, 0.85)',
         color: 'rgba(0,0,0,0.9)',
       },
       dark: {

@@ -1,13 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { ViewContext } from '../../contexts/ViewContext';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { HandleContext } from '../../contexts/HandleContext';
 
+import ViewStudent from '../popup/ViewStudent';
 
 const StudentList = ({ student }) => {
 
-  const { toggleView } = useContext(ViewContext);
   const { isLight, theme } = useContext(ThemeContext);
+
+  const [isToggleView, setToggleView] = useState(false);
+  const { getViewStudent, setTitles } = useContext(HandleContext);
+  const handleToggleView = e => {
+    getViewStudent(e.target.parentNode.parentNode.id);
+    setToggleView(!isToggleView);
+  };
+  const closeView = () => {
+    setTitles.map(setTitle => setTitle(''));
+    setToggleView(!isToggleView);
+  };
 
   return (
     <div className="student-list" id={student.id}
@@ -25,9 +36,16 @@ const StudentList = ({ student }) => {
 
       <button className="student-view"
         style={isLight ? theme.shadow.light : theme.shadow.dark}
-        onClick={toggleView}>
+        onClick={handleToggleView}
+      >
         <i className="fas fa-eye"></i>
       </button>
+
+      {isToggleView ? <ViewStudent
+        id={student.id}
+        closeView={closeView}
+      /> : null}
+
     </div>
   )
 };

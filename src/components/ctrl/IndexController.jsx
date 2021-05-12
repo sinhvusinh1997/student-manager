@@ -1,21 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import InputSearch from './InputSearch';
-import ViewInfo from '../popup/ViewInfo';
+import AddStudent from '../popup/AddStudent';
 
 
-import { ViewContext } from '../../contexts/ViewContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 
 const IndexController = () => {
-
-  const { isToggleView, toggleView } = useContext(ViewContext);
   const { isAuth } = useContext(AuthContext);
   const { isLight, theme, toggleTheme } = useContext(ThemeContext);
 
   const shadowStyle = isLight ? theme.shadow.light : theme.shadow.dark;
+
+
+  const [isToggleView, setToggleView] = useState(false);
+  const handleToggleAdd = () => setToggleView(!isToggleView);
 
 
   return (
@@ -25,7 +26,7 @@ const IndexController = () => {
       <InputSearch label={`Name`} />
       <InputSearch label={`ID`} />
 
-      <button onClick={toggleView} style={isAuth ? shadowStyle : theme.disabledStyle}>
+      <button onClick={handleToggleAdd} style={isAuth ? shadowStyle : theme.disabledStyle}>
         <i className="fas fa-plus"></i>
       </button>
 
@@ -37,7 +38,8 @@ const IndexController = () => {
 
       </button>
 
-      {isToggleView ? <ViewInfo id={`add-student`} /> : null}
+      {isToggleView ? <AddStudent id={`add-student`} handleToggleAdd={handleToggleAdd} /> : null}
+
     </div>
   )
 };

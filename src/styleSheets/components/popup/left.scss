@@ -16,9 +16,10 @@
       font-weight: bold;
     }
 
-    input {
+    input,
+    select {
       grid-column: 2 / 5;
-      height: 25px;
+      height: 30px;
       border: 2px solid rgba(0, 0, 0, 0.2);
       text-indent: 10px;
       font-size: 14px;
@@ -30,10 +31,34 @@
       transition: $transition;
 
       &:focus {
-        border: 2px solid rgba(0, 0, 0, 0.6);
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.1) !important;
       }
     }
+
+    select {
+      width: 50%;
+      outline: none;
+    }
+
+    // .gender-checkbox {
+    //   grid-column: 2 / 5;
+    //   // margin-left: 50px;
+
+    //   display: flex;
+
+    //   .container {
+    //     display: flex;
+    //     justify-items: center;
+    //     align-items: center;
+    //     margin-left: 50px;
+
+    //     label,
+    //     input {
+    //       padding: 0;
+    //       margin: 0;
+    //     }
+    //   }
+    // }
   }
 
   .btn-ctrl {

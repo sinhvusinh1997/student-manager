@@ -58,11 +58,13 @@
       cursor: pointer;
       font-size: 20px;
       color: white;
-      width: 90%;
-      height: 56%;
       margin: auto;
 
       transition: all 0.25s ease-in-out;
+
+      i {
+        padding: 4px 16px;
+      }
 
       &:hover {
         box-shadow: none !important;

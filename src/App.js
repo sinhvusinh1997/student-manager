@@ -7,14 +7,12 @@ import IndexAuth from './components/auth/IndexAuth';
 import IndexMain from './components/main/IndexMain';
 
 // ========================= CONTEXTS ===============================
-import ViewContextProvider from './contexts/ViewContext';
 import AuthContextProvider from './contexts/AuthContext';
 import ThemeContextProvider from './contexts/ThemeContext';
+import HandleContextProvider from './contexts/HandleContext';
 
 // ========================= STYLESHEETS ============================
 import './styleSheets/index.scss';
-
-
 
 // ========================= MAIN ===================================
 
@@ -24,10 +22,10 @@ const App = () => {
       <AuthContextProvider>
         <ThemeContextProvider>
           <IndexAuth />
-          <ViewContextProvider>
+          <HandleContextProvider>
             <IndexController />
             <IndexMain />
-          </ViewContextProvider>
+          </HandleContextProvider>
         </ThemeContextProvider>
       </AuthContextProvider>
     </div>
