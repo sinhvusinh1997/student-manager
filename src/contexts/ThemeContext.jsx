@@ -21,12 +21,12 @@ const ThemeContextProvider = ({ children }) => {
     inputField: {
       light: {
         background: 'rgba(255, 255, 255, 0.6)',
-        border: '1px solid rgba(0, 0, 0, 0.2)',
+        // border: '1px solid rgba(0, 0, 0, 0.2)',
         color: 'rgba(0, 0, 0, 1)',
       },
       dark: {
         background: 'rgba(255, 255, 255, 0.1)',
-        border: '1px solid rgba(0, 0, 0, 0.2)',
+        // border: '1px solid rgba(0, 0, 0, 0.2)',
         color: 'rgba(255, 255, 255, 1)',
       },
     },
@@ -44,18 +44,28 @@ const ThemeContextProvider = ({ children }) => {
       }
     },
     disabledStyle: {
-      opacity: '0.3',
-      pointerEvents: 'none',
-      border: 'none',
-      background: 'rgba(0, 0, 0, 0.2)',
-      boxShadow: 'none'
+      light: {
+        opacity: '0.5',
+        pointerEvents: 'none',
+        background: 'rgba(0, 0, 0, 0.2)',
+        boxShadow: 'none',
+        color: 'black'
+      },
+      dark: {
+        opacity: '0.5',
+        pointerEvents: 'none',
+        background: 'rgba(0, 0, 0, 0.2)',
+        boxShadow: 'none',
+        color: 'white'
+      }
+    },
+    selected: {
+      background: 'darkred',
+      color: 'bisque',
     }
   };
 
-  const toggleTheme = () => {
-    console.log('Theme has changed!');
-    setLight(!isLight);
-  };
+  const toggleTheme = () => setLight(!isLight);
 
   const themeContextData = {
     isLight,

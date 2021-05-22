@@ -13,6 +13,8 @@ const IndexController = () => {
   const { isLight, theme, toggleTheme } = useContext(ThemeContext);
 
   const shadowStyle = isLight ? theme.shadow.light : theme.shadow.dark;
+  const disable = isLight ? theme.disabledStyle.light : theme.disabledStyle.dark;
+  const bgStyle = isLight ? theme.bg.light : theme.bg.dark;
 
 
   const [isToggleView, setToggleView] = useState(false);
@@ -21,21 +23,20 @@ const IndexController = () => {
 
   return (
     <div className="wrapper-controller"
-      style={isLight ? theme.bg.light : theme.bg.dark}>
+      style={bgStyle}>
 
-      <InputSearch label={`Name`} />
-      <InputSearch label={`ID`} />
+      <InputSearch label={`name`} />
+      <InputSearch label={`studentID`} />
+      <InputSearch label={`classID`} />
 
-      <button onClick={handleToggleAdd} style={isAuth ? shadowStyle : theme.disabledStyle}>
+      <button onClick={handleToggleAdd} style={isAuth ? shadowStyle : disable}>
         <i className="fas fa-plus"></i>
       </button>
 
-      <button onClick={toggleTheme} style={isLight ? theme.shadow.light : theme.shadow.dark}>
+      <button onClick={toggleTheme} style={shadowStyle}>
         {isLight ? (
           <i className="fas fa-moon"></i>) :
           (<i className="fas fa-sun"></i>)}
-
-
       </button>
 
       {isToggleView ? <AddStudent id={`add-student`} handleToggleAdd={handleToggleAdd} /> : null}

@@ -9,18 +9,20 @@ const Footer = () => {
   const { isAuth } = useContext(AuthContext);
   const { isLight, theme } = useContext(ThemeContext);
   const shadowStyle = isLight ? theme.shadow.light : theme.shadow.dark;
+  const disable = isLight ? theme.disabledStyle.light : theme.disabledStyle.dark;
 
-  const { pagination, handlePageChange } = useContext(HandleContext);
+
+  const { pagination, handlePageChange, totalsDeleteIDs, deleteMultiStudent } = useContext(HandleContext);
   const { _page, _limit, _totalRows } = pagination;
   const totalPage = Math.ceil(_totalRows / _limit);
-  const disabledPrev = _page <= 1 ? theme.disabledStyle : shadowStyle;
-  const disabledNext = _page >= totalPage ? theme.disabledStyle : shadowStyle;
+  const disabledPrev = _page <= 1 ? disable : shadowStyle;
+  const disabledNext = _page >= totalPage ? disable : shadowStyle;
 
   return (
     <div className="footer">
 
-      <button className="trash" style={isAuth ? null : theme.disabledStyle}>
-        <span className="total">{isAuth ? 5 : `--`}</span>
+      <button className="trash" style={isAuth ? null : disable} onClick={deleteMultiStudent}>
+        <span className="total">{isAuth ? totalsDeleteIDs.current : `--`}</span>
         <i className="fas fa-trash"></i>
       </button>
 
@@ -34,13 +36,13 @@ const Footer = () => {
 
         <div className="btn">
           <button className="prev"
-            style={isAuth ? disabledPrev : theme.disabledStyle}
+            style={isAuth ? disabledPrev : disable}
             onClick={() => handlePageChange(_page - 1)}
           >
             <i className="fas fa-long-arrow-alt-left"></i>
           </button>
           <button className="next"
-            style={isAuth ? disabledNext : theme.disabledStyle}
+            style={isAuth ? disabledNext : disable}
             onClick={() => handlePageChange(_page + 1)}>
             <i className="fas fa-long-arrow-alt-right"></i>
           </button>

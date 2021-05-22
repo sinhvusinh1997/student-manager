@@ -8,11 +8,14 @@ const IndexAuth = () => {
   const { isAuth, changeAuth } = useContext(AuthContext);
   const { isLight, theme } = useContext(ThemeContext);
 
+  const shadowStyle = isLight ? theme.shadow.light : theme.shadow.dark;
+  const bgStyle = isLight ? theme.bg.light : theme.bg.dark;
+
   return (
-    <div className="wrapper-auth" style={isLight ? theme.bg.light : theme.bg.dark}>
-      <div className="user">{isAuth ? `Sinh Vũ` : `Pls, Login!`}</div>
+    <div className="wrapper-auth" style={bgStyle}>
+      <div className="user">{isAuth ? `Siinh` : `- - -`}</div>
       <button onClick={changeAuth}
-        style={isLight ? theme.shadow.light : theme.shadow.dark}>{isAuth ? `Logout` : `Login`}</button>
+        style={shadowStyle}>{isAuth ? `Logout` : `Login`}</button>
     </div>
   )
 };

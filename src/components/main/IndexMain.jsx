@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 // ==================== Components ====================
 import Title from './Title';
@@ -16,22 +16,26 @@ const IndexMain = () => {
   const { isLight, theme } = useContext(ThemeContext);
   const { getStudent } = useContext(HandleContext);
 
+  const bgStyle = isLight ? theme.bg.light : theme.bg.dark;
+
+  // ========= Trigger re-render to display totals IDs ======================
+  const [isClick, setClick] = useState(true);
+  const trigger = () => setClick(!isClick);
+
+
+
   return (
-    <div className="wrapper-main" style={isLight ? theme.bg.light : theme.bg.dark}>
+    <div className="wrapper-main" style={bgStyle}>
       <Title />
 
-      <div className="student-container">
+      <div className="student-container" onClick={trigger}>
         {isAuth ? (
           getStudent.map(student =>
             <StudentList
               student={student}
-              key={student.id}
-            />
-          )
-        ) : (<p style={{ textAlign: 'center', fontSize: '20px' }}>Please Login!</p>)}
-
+              key={student.id} />)) :
+          (<p style={{ textAlign: 'center', fontSize: '20px' }}>Please Login!</p>)}
       </div>
-
 
       <Footer />
     </div>
