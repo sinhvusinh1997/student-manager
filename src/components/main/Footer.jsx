@@ -4,6 +4,9 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { HandleContext } from '../../contexts/HandleContext';
 
+import Delete from '../display/Delete';
+
+
 const Footer = () => {
 
   const { isAuth } = useContext(AuthContext);
@@ -12,16 +15,17 @@ const Footer = () => {
   const disable = isLight ? theme.disabledStyle.light : theme.disabledStyle.dark;
 
 
-  const { pagination, handlePageChange, totalsDeleteIDs, deleteMultiStudent } = useContext(HandleContext);
+  const { pagination, handlePageChange, totalsDeleteIDs, isDelete, togglePopDel } = useContext(HandleContext);
   const { _page, _limit, _totalRows } = pagination;
   const totalPage = Math.ceil(_totalRows / _limit);
   const disabledPrev = _page <= 1 ? disable : shadowStyle;
   const disabledNext = _page >= totalPage ? disable : shadowStyle;
 
+
   return (
     <div className="footer">
 
-      <button className="trash" style={isAuth ? null : disable} onClick={deleteMultiStudent}>
+      <button className="trash" style={isAuth ? null : disable} onClick={() => togglePopDel()}>
         <span className="total">{isAuth ? totalsDeleteIDs.current : `--`}</span>
         <i className="fas fa-trash"></i>
       </button>
@@ -48,6 +52,8 @@ const Footer = () => {
           </button>
         </div>
       </div>
+
+      {isDelete ? <Delete /> : null}
 
     </div >
   )

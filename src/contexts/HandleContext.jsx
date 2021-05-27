@@ -19,6 +19,15 @@ const HandleContextProvider = ({ children }) => {
     _limit: 10,
   });
 
+  // ===== DISPLAY LOADING =========================  
+  const [isLoading, setLoading] = useState(true);
+  const [isSuccess, setSucess] = useState(false);
+  const [isDelete, setDelete] = useState(false);
+  const [isPatch, setPatch] = useState(false);
+  const [isError, setError] = useState(false);
+  const [isEdit, setEdit] = useState(false);
+
+
   // ===== GET STUDENTs =============================
   useEffect(() => {
     const fetchStudentLists = async () => {
@@ -29,6 +38,7 @@ const HandleContextProvider = ({ children }) => {
 
         setGetStudent(data);
         setPagination(pagination);
+        setLoading(false);
 
       } catch (error) { alert(error.message) }
     };
@@ -56,7 +66,12 @@ const HandleContextProvider = ({ children }) => {
   const titles = [name, studentID, classID, gender, dayOfBirth, phoneNumber, email, avatar];
   const setTitles = [setName, setStudentID, setClassID, setGender, setDayOfBirth, setPhoneNumber, setEmail, setAvatar];
 
+  const isFill = (name && studentID && classID && gender && dayOfBirth && phoneNumber && email && avatar) !== '';
+
   const handleChangeTitle = e => {
+    setSucess(false);
+    setError(false);
+
     const IdTitle = e.target.parentNode.id;
     const value = e.target.value;
 
@@ -90,20 +105,28 @@ const HandleContextProvider = ({ children }) => {
   };
 
   const handleSubmit = async () => {
-    try {
-      await axios.post(`${baseURL}/student`, {
-        'name': titles[0],
-        'studentID': titles[1],
-        'classID': titles[2],
-        'gender': titles[3],
-        'dayOfBirth': titles[4],
-        'phoneNumber': titles[5],
-        'email': titles[6],
-        'avatar': titles[7],
-      });
-      setTitles.map(setTitle => setTitle(''));
-      setFilter({ ...filter });
-    } catch (error) { alert(error.message) }
+
+    if (isFill) {
+      try {
+        await axios.post(`${baseURL}/student`, {
+          'name': titles[0],
+          'studentID': titles[1],
+          'classID': titles[2],
+          'gender': titles[3],
+          'dayOfBirth': titles[4],
+          'phoneNumber': titles[5],
+          'email': titles[6],
+          'avatar': titles[7],
+        });
+        setTitles.map(setTitle => setTitle(''));
+        setFilter({ ...filter });
+        setError(false);
+        setSucess(true);
+      } catch (error) { alert(error.message) }
+    } else {
+      setSucess(false);
+      setError(true);
+    }
   };
 
   // ===== VIEW STUDENT =====================
@@ -120,8 +143,6 @@ const HandleContextProvider = ({ children }) => {
       setEmail(reponseData.email);
       setAvatar(reponseData.avatar)
       setDayOfBirth(reponseData.dayOfBirth);
-
-
     } catch (error) { alert(error.message) }
   };
 
@@ -166,10 +187,12 @@ const HandleContextProvider = ({ children }) => {
   };
 
   const deleteMultiStudent = () => {
-    const result = window.confirm(`Do you want to delete ${deleteIDsList.current.length} students?`);
-    if (!result) return;
     deleteIDsList.current.forEach(id => handleDeleteStudent(id));
-    totalsDeleteIDs.current = 0;
+    setTimeout(() => {
+      totalsDeleteIDs.current = 0;
+      deleteIDsList.current = [];
+      togglePopDel();
+    }, 500)
   };
 
   const handleDeleteStudent = async ID => {
@@ -179,26 +202,49 @@ const HandleContextProvider = ({ children }) => {
     } catch (error) { alert(error.message) };
   };
 
+  const togglePopDel = () => setDelete(!isDelete)
+
   // ==== UPDATE STUDENT ===============
   const handleUpdate = async id => {
-    try {
-      await axios.patch(`${baseURL}/student/${id}`, {
-        'name': titles[0],
-        'studentID': titles[1],
-        'classID': titles[2],
-        'gender': titles[3],
-        'dayOfBirth': titles[4],
-        'phoneNumber': titles[5],
-        'email': titles[6],
-        'avatar': titles[7],
-      })
-      setFilter({ ...filter })
-    } catch (error) { alert(error.message) }
+    if (isFill) {
+      try {
+        await axios.patch(`${baseURL}/student/${id}`, {
+          'name': titles[0],
+          'studentID': titles[1],
+          'classID': titles[2],
+          'gender': titles[3],
+          'dayOfBirth': titles[4],
+          'phoneNumber': titles[5],
+          'email': titles[6],
+          'avatar': titles[7],
+        })
+        setFilter({ ...filter });
+        setPatch(true);
+        setEdit(false);
+        setError(false);
+      } catch (error) { alert(error.message) }
+    } else {
+      setPatch(false);
+      setError(true);
+      setEdit(true);
+    }
   };
 
 
-
   const handleContextData = {
+    // ===== DISPLAY LOADING ================
+    isLoading,
+    isSuccess,
+    setSucess,
+    isDelete,
+    isPatch,
+    setPatch,
+    togglePopDel,
+    isError,
+    setError,
+    setEdit,
+    isEdit,
+
     // ===== GET STUDENT LIST ===============
     getStudent,
 

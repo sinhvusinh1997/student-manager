@@ -4,6 +4,8 @@
   display: grid;
   grid-template-rows: repeat(10, 1fr);
 
+  position: relative;
+
   .student-list {
     display: grid;
     grid-template-columns: repeat(12, 1fr);

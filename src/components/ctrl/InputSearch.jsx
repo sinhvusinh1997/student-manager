@@ -7,12 +7,12 @@ import { HandleContext } from '../../contexts/HandleContext';
 const InputSearch = ({ label }) => {
 
   const { searchName, searchID, searchClassID } = useContext(HandleContext);
+  const { isLight, theme } = useContext(ThemeContext);
   const { isAuth } = useContext(AuthContext);
 
   const [title, setTitle] = useState('');
   const timeOutSearch = useRef(null);
 
-  const { isLight, theme } = useContext(ThemeContext);
   const inputStyle = isLight ? theme.inputField.light : theme.inputField.dark;
   const disable = isLight ? theme.disabledStyle.light : theme.disabledStyle.dark;
 
@@ -22,6 +22,7 @@ const InputSearch = ({ label }) => {
     setTitle(value);
 
     if (timeOutSearch.current) clearTimeout(timeOutSearch.current);
+
     timeOutSearch.current = setTimeout(() => {
       switch (label) {
         case 'name':
@@ -38,7 +39,6 @@ const InputSearch = ({ label }) => {
       }
     }, 500);
   };
-
 
   return (
     <input

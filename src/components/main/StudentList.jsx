@@ -8,7 +8,7 @@ import ViewStudent from '../popup/ViewStudent';
 const StudentList = ({ student }) => {
 
   const { isLight, theme } = useContext(ThemeContext);
-  const { getViewStudent, setTitles, sendDeleteIDs } = useContext(HandleContext);
+  const { getViewStudent, titles, setTitles, sendDeleteIDs, setSucess, setError } = useContext(HandleContext);
 
   const [isToggleView, setToggleView] = useState(false);
   const [select, setSelect] = useState(false);
@@ -24,6 +24,8 @@ const StudentList = ({ student }) => {
 
   const closeView = () => {
     setTitles.map(setTitle => setTitle(''));
+    setError(false);
+    setSucess(false);
     setToggleView(!isToggleView);
   };
 
@@ -57,7 +59,8 @@ const StudentList = ({ student }) => {
 
       {isToggleView ? <ViewStudent
         id={student.id}
-        closeView={closeView} /> : null}
+        closeView={closeView}
+        titles={titles} /> : null}
 
     </Fragment>
   )

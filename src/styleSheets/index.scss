@@ -1,17 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap");
 
-@import "base";
 @import "components/all.scss";
 
+// ============= BASE ===================
+a {
+  text-decoration: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  outline: none;
+  padding: 0;
+  border: none;
+}
+
 body {
+  background: rgb(0, 0, 0);
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
-  background: rgba(0, 0, 0, 0.8);
 }
 
 .wrapper-app {
-  // width: 900px;
-  width: 80vw;
+  width: 900px;
   height: 96vh;
   margin: 2vh auto;
 
@@ -19,9 +38,4 @@ body {
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: repeat(12, 1fr);
   gap: 10px;
-
-  // & > div {
-  //   background: rgba(255, 255, 255, 0.6);
-  //   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-  // }
 }

@@ -9,11 +9,11 @@ const ThemeContextProvider = ({ children }) => {
     // background
     bg: {
       light: {
-        background: 'rgba(255, 255, 255, 0.85)',
+        background: 'rgba(255, 255, 255, 1)',
         color: 'rgba(0,0,0,0.9)',
       },
       dark: {
-        background: 'rgb(2, 15, 51)',
+        background: 'rgb(0, 40, 80)',
         color: 'rgba(255,255,255,0.9)',
       }
     },
@@ -21,12 +21,10 @@ const ThemeContextProvider = ({ children }) => {
     inputField: {
       light: {
         background: 'rgba(255, 255, 255, 0.6)',
-        // border: '1px solid rgba(0, 0, 0, 0.2)',
         color: 'rgba(0, 0, 0, 1)',
       },
       dark: {
         background: 'rgba(255, 255, 255, 0.1)',
-        // border: '1px solid rgba(0, 0, 0, 0.2)',
         color: 'rgba(255, 255, 255, 1)',
       },
     },
