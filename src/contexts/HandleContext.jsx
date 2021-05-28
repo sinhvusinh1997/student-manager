@@ -17,6 +17,7 @@ const HandleContextProvider = ({ children }) => {
   const [filter, setFilter] = useState({
     _page: 1,
     _limit: 10,
+    _totalRows: 100
   });
 
   // ===== DISPLAY LOADING =========================  
@@ -30,6 +31,7 @@ const HandleContextProvider = ({ children }) => {
 
   // ===== GET STUDENTs =============================
   useEffect(() => {
+
     const fetchStudentLists = async () => {
       try {
         const paramString = queryString.stringify(filter)
@@ -46,7 +48,7 @@ const HandleContextProvider = ({ children }) => {
     fetchStudentLists();
   }, [filter]);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     setFilter({
       ...filter,
       _page: newPage,
@@ -174,16 +176,28 @@ const HandleContextProvider = ({ children }) => {
   // ==== DELETE STUDENT ===============
   const totalsDeleteIDs = useRef(0);
   const deleteIDsList = useRef([]);
+  const isSelect = useRef(false);
 
   const sendDeleteIDs = ID => {
     if (deleteIDsList.current.includes(ID)) {
       const index = deleteIDsList.current.indexOf(ID);
       deleteIDsList.current.splice(index, 1);
       totalsDeleteIDs.current--;
+      isSelect.current = false;
     } else {
       deleteIDsList.current.push(ID);
       totalsDeleteIDs.current++;
+      isSelect.current = true;
     };
+    changeIsSelect(ID);
+  };
+
+  const changeIsSelect = async ID => {
+    try {
+      const res = await axios.patch(`${baseURL}/student/${ID}`, { "isSelect": isSelect.current });
+      setFilter({ ...filter })
+      console.log(res.data)
+    } catch (error) { alert(error.message) };
   };
 
   const deleteMultiStudent = () => {
@@ -245,6 +259,8 @@ const HandleContextProvider = ({ children }) => {
     setEdit,
     isEdit,
 
+    isSelect,
+
     // ===== GET STUDENT LIST ===============
     getStudent,
 
@@ -269,6 +285,7 @@ const HandleContextProvider = ({ children }) => {
     // ===== DELETE STUDENT =================
     sendDeleteIDs,
     totalsDeleteIDs,
+    deleteIDsList,
     deleteMultiStudent,
 
     // ===== UPDATE STUDENT =================

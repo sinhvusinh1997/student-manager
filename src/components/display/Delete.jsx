@@ -11,11 +11,18 @@ const Delete = () => {
   return (
     <>
       <div className='delete-container' style={bgStyle}>
-        <p>{`Are you sure to delete ${totalsDeleteIDs.current} student?`}</p>
-        <div className='btn'>
-          <button className='yes' onClick={deleteMultiStudent}>Yes</button>
-          <button className='no' onClick={() => togglePopDel()}>No</button>
-        </div>
+        {totalsDeleteIDs.current > 0 ? (
+          <>
+            <p>{`Are you sure to delete ${totalsDeleteIDs.current} student?`}</p>
+            <div className='btn'>
+              <button className='yes' onClick={deleteMultiStudent}>Yes</button>
+              <button className='no' onClick={() => togglePopDel()}>No</button>
+            </div>
+          </>
+
+        ) : (
+          <p>There are NO student to delete!</p>
+        )}
       </div>
 
       <div className="overlay" onClick={() => togglePopDel()}></div>

@@ -9,6 +9,10 @@ const TitleContainer = () => {
 
   return (
     <ul className="title-container" style={borderBotStyle}>
+      <li className="title checkbox">
+        <input type="checkbox" name="" id="" />
+      </li>
+
       <li className="title studentID">Student ID</li>
       <li className="title name">Name</li>
       <li className="title class">Class</li>

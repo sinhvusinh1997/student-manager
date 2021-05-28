@@ -19,15 +19,15 @@ import './styleSheets/index.scss';
 const App = () => {
   return (
     <div className="wrapper-app">
-      <AuthContextProvider>
-        <ThemeContextProvider>
-          <IndexAuth />
-          <HandleContextProvider>
+      <HandleContextProvider>
+        <AuthContextProvider>
+          <ThemeContextProvider>
+            <IndexAuth />
             <IndexController />
             <IndexMain />
-          </HandleContextProvider>
-        </ThemeContextProvider>
-      </AuthContextProvider>
+          </ThemeContextProvider>
+        </AuthContextProvider>
+      </HandleContextProvider>
     </div>
   )
 }

@@ -11,7 +11,6 @@ const StudentList = ({ student }) => {
   const { getViewStudent, titles, setTitles, sendDeleteIDs, setSucess, setError } = useContext(HandleContext);
 
   const [isToggleView, setToggleView] = useState(false);
-  const [select, setSelect] = useState(false);
 
   const borderBotStyle = isLight ? theme.borderBot.light : theme.borderBot.dark;
   const shadowStyle = isLight ? theme.shadow.light : theme.shadow.dark;
@@ -31,18 +30,21 @@ const StudentList = ({ student }) => {
 
   const countDelete = e => {
     const id = e.target.parentNode.parentNode.id;
-    setSelect(!select);
     sendDeleteIDs(id);
   };
-
 
   return (
     <Fragment>
       <div className="student-list" id={student.id}
-        style={select ? theme.selected : borderBotStyle}>
+        style={student.isSelect ? theme.selected : borderBotStyle}
+      >
 
         <ul className="student-info"
-          onClick={e => countDelete(e)}>
+          onClick={e => countDelete(e)}
+        >
+          <li className="item checkbox">
+            <input type="checkbox" checked={student.isSelect} />
+          </li>
           <li className="item studentID">{student.studentID}</li>
           <li className="item name">{student.name}</li>
           <li className="item gender">{student.gender}</li>
