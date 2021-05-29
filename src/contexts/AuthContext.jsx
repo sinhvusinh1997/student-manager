@@ -7,11 +7,12 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [isAuth, setAuth] = useState(false);
 
-  const { deleteIDsList } = useContext(HandleContext);
+  const { deleteIDsList, handlePageChange } = useContext(HandleContext);
 
   const changeAuth = () => {
     setAuth(!isAuth);
     deleteIDsList.current = [];
+    handlePageChange(1)
   };
 
   const authContextData = {
