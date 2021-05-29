@@ -19,9 +19,6 @@ const IndexMain = () => {
 
   const bgStyle = isLight ? theme.bg.light : theme.bg.dark;
 
-
-
-
   // ========= Trigger re-render to display totals IDs ======================
   const [isClick, setClick] = useState(true);
   const trigger = () => setClick(!isClick);
@@ -34,15 +31,12 @@ const IndexMain = () => {
         {isAuth ? (isLoading ? <Loading /> : (
           getStudent.map(student =>
             <StudentList
-
               student={student}
               key={student.id} />))
         ) : null}
       </div>
 
       <Footer />
-
-
     </div>
   )
 };

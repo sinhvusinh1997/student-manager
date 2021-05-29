@@ -1,17 +1,17 @@
 import React, { createContext, useState, useContext } from 'react';
-import { HandleContext } from './HandleContext';
+
+import { HandleContext } from '../contexts/HandleContext';
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [isAuth, setAuth] = useState(false);
 
-  const { totalsDeleteIDs, deleteIDsList } = useContext(HandleContext);
+  const { deleteIDsList } = useContext(HandleContext);
 
   const changeAuth = () => {
-    totalsDeleteIDs.current = 0;
+    setAuth(!isAuth);
     deleteIDsList.current = [];
-    setAuth(!isAuth)
   };
 
   const authContextData = {

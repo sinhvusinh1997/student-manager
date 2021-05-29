@@ -15,7 +15,7 @@ const Footer = () => {
   const disable = isLight ? theme.disabledStyle.light : theme.disabledStyle.dark;
 
 
-  const { pagination, handlePageChange, totalsDeleteIDs, isDelete, togglePopDel } = useContext(HandleContext);
+  const { pagination, handlePageChange, isDelete, togglePopDel, deleteIDsList } = useContext(HandleContext);
   const { _page, _limit, _totalRows } = pagination;
   const totalPage = Math.ceil(_totalRows / _limit);
   const disabledPrev = _page <= 1 ? disable : shadowStyle;
@@ -26,7 +26,7 @@ const Footer = () => {
     <div className="footer">
 
       <button className="trash" style={isAuth ? null : disable} onClick={() => togglePopDel()}>
-        <span className="total">{isAuth ? totalsDeleteIDs.current : `--`}</span>
+        <span className="total">{isAuth ? deleteIDsList.current.length : `--`}</span>
         <i className="fas fa-trash"></i>
       </button>
 

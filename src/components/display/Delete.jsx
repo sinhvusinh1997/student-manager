@@ -4,16 +4,16 @@ import { HandleContext } from '../../contexts/HandleContext';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 const Delete = () => {
-  const { totalsDeleteIDs, togglePopDel, deleteMultiStudent } = useContext(HandleContext);
+  const { deleteIDsList, togglePopDel, deleteMultiStudent } = useContext(HandleContext);
   const { isLight, theme } = useContext(ThemeContext);
   const bgStyle = isLight ? theme.bg.light : theme.bg.dark;
 
   return (
     <>
       <div className='delete-container' style={bgStyle}>
-        {totalsDeleteIDs.current > 0 ? (
+        {deleteIDsList.current.length > 0 ? (
           <>
-            <p>{`Are you sure to delete ${totalsDeleteIDs.current} student?`}</p>
+            <p>{`Are you sure to delete ${deleteIDsList.current.length} student?`}</p>
             <div className='btn'>
               <button className='yes' onClick={deleteMultiStudent}>Yes</button>
               <button className='no' onClick={() => togglePopDel()}>No</button>

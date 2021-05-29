@@ -17,11 +17,11 @@ const HandleContextProvider = ({ children }) => {
   const [filter, setFilter] = useState({
     _page: 1,
     _limit: 10,
-    _totalRows: 100
+    _totalRows: 50
   });
 
-  // ===== DISPLAY LOADING =========================  
-  const [isLoading, setLoading] = useState(true);
+  /** ========== DISPLAY LOADING  =================================================*/
+  const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSucess] = useState(false);
   const [isDelete, setDelete] = useState(false);
   const [isPatch, setPatch] = useState(false);
@@ -29,11 +29,12 @@ const HandleContextProvider = ({ children }) => {
   const [isEdit, setEdit] = useState(false);
 
 
-  // ===== GET STUDENTs =============================
+  /** ========== GET STUDENTs  =================================================*/
   useEffect(() => {
 
     const fetchStudentLists = async () => {
       try {
+        setLoading(true);
         const paramString = queryString.stringify(filter)
         const reponse = await axios.get(`${baseURL}/student?${paramString}`);
         const { data, pagination } = reponse.data;
@@ -55,7 +56,7 @@ const HandleContextProvider = ({ children }) => {
     })
   };
 
-  // ===== ADD NEW STUDENT =================================================
+  /** ========== ADD NEW STUDENT  =================================================*/
   const [name, setName] = useState('');
   const [studentID, setStudentID] = useState('');
   const [classID, setClassID] = useState('');
@@ -131,7 +132,7 @@ const HandleContextProvider = ({ children }) => {
     }
   };
 
-  // ===== VIEW STUDENT =====================
+  /** ========== VIEW STUDENT ================================================= */
   const getViewStudent = async ID => {
     try {
       const reponse = await axios.get(`${baseURL}/student/${ID}`);
@@ -145,10 +146,11 @@ const HandleContextProvider = ({ children }) => {
       setEmail(reponseData.email);
       setAvatar(reponseData.avatar)
       setDayOfBirth(reponseData.dayOfBirth);
+
     } catch (error) { alert(error.message) }
   };
 
-  // ==== SEARCH STUDENT ======================
+  /** ========== SEARCH STUDENT ================================================= */
   const searchName = value => {
     setFilter({
       ...filter,
@@ -173,8 +175,7 @@ const HandleContextProvider = ({ children }) => {
     })
   };
 
-  // ==== DELETE STUDENT ===============
-  const totalsDeleteIDs = useRef(0);
+  /** ========== DELETE STUDENT ================================================= */
   const deleteIDsList = useRef([]);
   const isSelect = useRef(false);
 
@@ -182,28 +183,24 @@ const HandleContextProvider = ({ children }) => {
     if (deleteIDsList.current.includes(ID)) {
       const index = deleteIDsList.current.indexOf(ID);
       deleteIDsList.current.splice(index, 1);
-      totalsDeleteIDs.current--;
       isSelect.current = false;
     } else {
       deleteIDsList.current.push(ID);
-      totalsDeleteIDs.current++;
       isSelect.current = true;
     };
-    changeIsSelect(ID);
+    // changeIsSelect(ID);
   };
 
-  const changeIsSelect = async ID => {
-    try {
-      const res = await axios.patch(`${baseURL}/student/${ID}`, { "isSelect": isSelect.current });
-      setFilter({ ...filter })
-      console.log(res.data)
-    } catch (error) { alert(error.message) };
-  };
+  // const changeIsSelect = async ID => {
+  //   try {
+  //     await axios.patch(`${baseURL}/student/${ID}`, { "isSelect": isSelect.current });
+  //     setFilter({ ...filter })
+  //   } catch (error) { alert(error.message) };
+  // };
 
   const deleteMultiStudent = () => {
     deleteIDsList.current.forEach(id => handleDeleteStudent(id));
     setTimeout(() => {
-      totalsDeleteIDs.current = 0;
       deleteIDsList.current = [];
       togglePopDel();
     }, 500)
@@ -218,7 +215,7 @@ const HandleContextProvider = ({ children }) => {
 
   const togglePopDel = () => setDelete(!isDelete)
 
-  // ==== UPDATE STUDENT ===============
+  /** ========== UPDATE STUDENT ================================================= */
   const handleUpdate = async id => {
     if (isFill) {
       try {
@@ -244,9 +241,8 @@ const HandleContextProvider = ({ children }) => {
     }
   };
 
-
   const handleContextData = {
-    // ===== DISPLAY LOADING ================
+    /** ========== DISPLAY LOADING =================================================*/
     isLoading,
     isSuccess,
     setSucess,
@@ -261,34 +257,33 @@ const HandleContextProvider = ({ children }) => {
 
     isSelect,
 
-    // ===== GET STUDENT LIST ===============
+    /** ========== GET STUDENT LIST ================================================= */
     getStudent,
 
-    // ===== PAGINATION =====================
+    /** ========== PAGINATION ================================================= */
     pagination,
     handlePageChange,
 
-    // ===== ADD NEW STUDENTs ===============
+    /** ========== ADD NEW STUDENTs ================================================= */
     titles,
     setTitles,
     handleChangeTitle,
     handleSubmit,
 
-    // ===== VIEW STUDENT ===================
+    /** ========== VIEW STUDENT ================================================= */
     getViewStudent,
 
-    // ===== SEARCH STUDENT =================
+    /** ========== SEARCH STUDENT ================================================= */
     searchName,
     searchID,
     searchClassID,
 
-    // ===== DELETE STUDENT =================
+    /** ========== DELETE STUDENT ================================================= */
     sendDeleteIDs,
-    totalsDeleteIDs,
     deleteIDsList,
     deleteMultiStudent,
 
-    // ===== UPDATE STUDENT =================
+    /** ========== UPDATE STUDENT ================================================= */
     handleUpdate,
 
   };
